@@ -1,12 +1,8 @@
-import { Box } from "@mui/material";
-import Header from "./components/Header/Header";
+import { FC } from "react";
+import RoutesComponent from "./components/Routes/RoutesComponent";
 
-const App = () => {
-  return (
-    <Box>
-      <Header />
-    </Box>
-  );
+const App: FC = () => {
+  return <RoutesComponent />;
 };
 
 export default App;
