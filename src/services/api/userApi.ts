@@ -1,3 +1,4 @@
+import { User } from "../../types/types";
 import { api } from "./api";
 
 interface UserRegisterRequest {
@@ -17,11 +18,17 @@ export const userApi = api.injectEndpoints({
         body,
       }),
     }),
+    getUsers: build.query<User[], void>({
+      query: () => ({
+        url: "/users",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useRegisterMutation } = userApi;
+export const { useRegisterMutation, useGetUsersQuery } = userApi;
 
 export const {
-  endpoints: { register },
+  endpoints: { register, getUsers },
 } = userApi;
