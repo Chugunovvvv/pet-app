@@ -1,11 +1,10 @@
 import { User } from "../../types/types";
 import { api } from "./api";
 
-interface UserRegisterRequest {
+export interface UserRegisterRequest {
   email: string;
   name: string;
   password: string;
-  role: string;
   avatar: string;
 }
 

@@ -11,14 +11,18 @@ import CloseIcon from "@mui/icons-material/Close";
 import SignInForm from "../Forms/SignInForm";
 import SignUpForm from "../Forms/SignUpForm";
 interface Props {
-  setOpen: (arg: boolean) => void;
+  closeModal: () => void;
   open: boolean;
 }
 
-const AuthModal: FC<Props> = ({ setOpen, open }) => {
+const AuthModal: FC<Props> = ({ closeModal, open }) => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
+  const handleIsLogin = () => {
+    setIsLogin(true);
+  };
+
   return (
-    <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
+    <Dialog open={open} onClose={closeModal} fullWidth maxWidth="sm">
       <DialogTitle
         sx={{
           display: "flex",
@@ -31,7 +35,7 @@ const AuthModal: FC<Props> = ({ setOpen, open }) => {
         <IconButton
           edge="end"
           color="inherit"
-          onClick={() => setOpen(false)}
+          onClick={closeModal}
           aria-label="close"
           size="large"
         >
@@ -40,10 +44,11 @@ const AuthModal: FC<Props> = ({ setOpen, open }) => {
       </DialogTitle>
       <DialogContent>
         {/* Форма авторизации */}
-        {isLogin ? <SignInForm /> : <SignUpForm />}
-        <Button variant="contained" color="primary" sx={{ marginTop: "16px" }}>
-          {isLogin ? "Login" : "Sign Up"}
-        </Button>
+        {isLogin ? (
+          <SignInForm closeModal={closeModal} />
+        ) : (
+          <SignUpForm handleIsLogin={handleIsLogin} />
+        )}
       </DialogContent>
 
       <Box sx={{ padding: "16px", textAlign: "center" }}>

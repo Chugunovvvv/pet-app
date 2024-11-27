@@ -1,6 +1,6 @@
 import { api } from "./api";
 
-interface UserLoginRequest {
+export interface UserLoginRequest {
   email: string;
   password: string;
 }

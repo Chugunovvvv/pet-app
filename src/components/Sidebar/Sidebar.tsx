@@ -12,10 +12,10 @@ import { Link } from "react-router-dom";
 
 interface SidebarProps {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  closeModal: () => void;
 }
 
-const Sidebar: FC<SidebarProps> = ({ open, setOpen }) => {
+const Sidebar: FC<SidebarProps> = ({ open, closeModal }) => {
   const drawerWidth = 340;
   return (
     <Drawer
@@ -33,7 +33,7 @@ const Sidebar: FC<SidebarProps> = ({ open, setOpen }) => {
       variant="temporary"
       anchor="left"
       open={open}
-      onClose={() => setOpen(false)}
+      onClose={closeModal}
     >
       <Toolbar />
 
@@ -43,7 +43,7 @@ const Sidebar: FC<SidebarProps> = ({ open, setOpen }) => {
             <ListItem
               key={link.id}
               component="button"
-              onClick={() => setOpen(false)}
+              onClick={closeModal}
               sx={{
                 backgroundColor: "transparent",
 

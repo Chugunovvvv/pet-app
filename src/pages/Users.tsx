@@ -1,6 +1,5 @@
 import {
   Box,
-  CircularProgress,
   Typography,
   List,
   ListItem,
@@ -8,6 +7,7 @@ import {
   Alert,
   Avatar,
 } from "@mui/material";
+import Loader from "../components/Loader/Loader";
 import { useGetUsersQuery } from "../services/api/userApi";
 
 const Users = () => {
@@ -16,18 +16,7 @@ const Users = () => {
 
   if (isLoading) {
     // Если данные еще загружаются, показываем индикатор загрузки
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        <CircularProgress />
-      </Box>
-    );
+    return <Loader />;
   }
 
   if (isError) {
@@ -49,9 +38,23 @@ const Users = () => {
       </Typography>
 
       {data && data.length > 0 ? (
-        <List>
+        <List
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+            gap: "10px",
+          }}
+        >
           {data.map((user) => (
-            <ListItem key={user.id}>
+            <ListItem
+              key={user.id}
+              sx={{
+                width: "auto",
+                border: "1px solid #e8e8e8",
+                padding: "10px",
+                borderRadius: "20px",
+              }}
+            >
               <Avatar
                 alt={user.name}
                 src={user.avatar || undefined}
