@@ -8,10 +8,8 @@ const initialFormData: UserLoginRequest = {
   email: "",
   password: "",
 };
-interface Props {
-  closeModal: () => void;
-}
-const SignInForm: FC<Props> = ({ closeModal }) => {
+
+const SignInForm: FC = () => {
   const [login, { isError, isLoading, error }] = useLoginMutation();
   const [formData, setFormData] = useState<UserLoginRequest>(initialFormData);
   const navigate = useNavigate();
@@ -26,7 +24,6 @@ const SignInForm: FC<Props> = ({ closeModal }) => {
     e.preventDefault();
     try {
       await login(formData).unwrap();
-      closeModal();
       navigate(routes.PROFILE);
     } catch (error) {
       console.log(error);

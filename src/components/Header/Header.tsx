@@ -8,25 +8,21 @@ import {
 } from "@mui/material";
 import { FC, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import AuthModal from "../AuthModal/AuthModal";
 import Sidebar from "../Sidebar/Sidebar";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import { useAppDispatch } from "../../store/hooks";
 import { logout } from "../../features/authSlice";
+import { useNavigate } from "react-router-dom";
 const Header: FC = () => {
-  const [open, setOpen] = useState<boolean>(false); // Состояние для модала
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false); // Состояние для сайдбара
   const { isLoggedIn } = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
-  const handleCloseAuthModal = () => {
-    setOpen(false);
-  };
-  const handleOpenAuthModal = () => {
-    setOpen(true);
-  };
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     dispatch(logout());
+    navigate("/auth");
   };
   // Функция для открытия/закрытия сайдбара
   const toggleSidebar = () => {
@@ -35,6 +31,7 @@ const Header: FC = () => {
   const handleCloseSidebar = () => {
     setSidebarOpen(false);
   };
+
   return (
     <Box>
       <AppBar position="static">
@@ -52,16 +49,17 @@ const Header: FC = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             PET-APP
           </Typography>
-          <Button
-            color="inherit"
-            sx={{ fontSize: "1.2rem" }}
-            onClick={isLoggedIn ? handleLogout : handleOpenAuthModal}
-          >
-            {isLoggedIn ? "Logout" : "Login"}
-          </Button>
+          {isLoggedIn && (
+            <Button
+              color="inherit"
+              sx={{ fontSize: "1.2rem" }}
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
-      <AuthModal open={open} closeModal={handleCloseAuthModal} />
       {/* Сайдбар */}
       <Sidebar open={sidebarOpen} closeModal={handleCloseSidebar} />
     </Box>

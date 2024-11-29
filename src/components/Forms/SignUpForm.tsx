@@ -13,10 +13,7 @@ const initialFormData: UserRegisterRequest = {
   avatar: BASE_AVATAR_URL,
 };
 
-interface Props {
-  handleIsLogin: () => void;
-}
-const SignUpForm: FC<Props> = ({ handleIsLogin }) => {
+const SignUpForm: FC = () => {
   const [register, { isLoading, isError, error }] = useRegisterMutation();
 
   const [formData, setFormData] = useState(initialFormData);
@@ -31,7 +28,6 @@ const SignUpForm: FC<Props> = ({ handleIsLogin }) => {
     e.preventDefault();
     try {
       await register(formData).unwrap();
-      handleIsLogin();
     } catch (error) {
       console.error(error);
     }
