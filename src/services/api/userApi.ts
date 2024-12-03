@@ -23,11 +23,29 @@ export const userApi = api.injectEndpoints({
         method: "GET",
       }),
     }),
+    getUser: build.query<User, string>({
+      query: (id) => ({
+        url: `/users/${id}`,
+        method: "GET",
+      }),
+    }),
+    updateUser: build.mutation<User, { id: number; body: Partial<User> }>({
+      query: ({ id, body }) => ({
+        url: `/users/${id}`,
+        method: "PUT",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useRegisterMutation, useGetUsersQuery } = userApi;
+export const {
+  useRegisterMutation,
+  useGetUsersQuery,
+  useGetUserQuery,
+  useUpdateUserMutation,
+} = userApi;
 
 export const {
-  endpoints: { register, getUsers },
+  endpoints: { register, getUsers, getUser, updateUser },
 } = userApi;

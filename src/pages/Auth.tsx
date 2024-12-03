@@ -6,10 +6,13 @@ import SignUpForm from "../components/Forms/SignUpForm";
 
 const Auth: FC = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
+  const handleIsLogin = () => {
+    setIsLogin(true);
+  };
   return (
     <Box>
       {/* Форма авторизации */}
-      {isLogin ? <SignInForm /> : <SignUpForm />}
+      {isLogin ? <SignInForm /> : <SignUpForm handleIsLogin={handleIsLogin} />}
 
       <Box sx={{ padding: "16px", textAlign: "center" }}>
         <Button
